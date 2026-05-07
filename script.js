@@ -1,5 +1,4 @@
 // This is where my js file begins at TOP
-//console.log("This means your script file has connected successfully!");
 
 // Rock - Paper - Scissors Game
 
@@ -22,11 +21,12 @@ function getHumanChoice() {
     let entry = prompt("What is your choice");
     let human = entry.toLocaleLowerCase();
     
-    if (human === "rock" || human === "scissors" || human === "paper")
-    return human;
+    if (human === "rock" || human === "scissors" || human === "paper") {
+        return human;
+    } else (!entry) 
+    return "Invalid entry! Round skipped.";
+    
 }
-//console.log("\n******",getHumanChoice(),"******","\n  (is Your Choice)");
-
 
 function playRound(humanChoice, computerChoice) {
     if (humanChoice === computerChoice) return "It is a Tie!";
@@ -35,19 +35,29 @@ function playRound(humanChoice, computerChoice) {
         (humanChoice === "paper" && computerChoice === "rock") || 
         (humanChoice === "scissors" && computerChoice === "paper")) {
             humanScore++;
-            return `Congrats! You win! because **${humanChoice}** beat ${computerChoice}`;
+            return `CONGRATS! You win because **${humanChoice}** beat ${computerChoice}`;
         }
         
     if ((computerChoice === "rock" && humanChoice === "scissors") || 
         (computerChoice === "paper" && humanChoice === "rock") || 
         (computerChoice === "scissors" && humanChoice === "paper")) {
             computerScore++;
-            return `Sorry, you lose because **${computerChoice}** beat your ${humanChoice}`;
-        }
+            return `Sorry, you lose because **${computerChoice}** beat ${humanChoice}`;
+        } 
         
 }
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
+function playGame() {
+    for (let i = 0; i < 5; i++) {
 
+        const humanSelection = getHumanChoice();
+        const computerSelection = getComputerChoice();
 
+        console.log(`--- Round #${i + 1} ---`);
+        console.log(playRound(humanSelection, computerSelection));
+        console.log("Your Choice:", humanSelection, "\nPC Choice:", computerSelection);
+        console.log("Current Score:-\n You:", humanScore, "\n PC:", computerScore);
+    }
+}
+
+playGame();
