@@ -3,29 +3,51 @@
 
 // Rock - Paper - Scissors Game
 
-// Set up PC choice
+
+let humanScore = 0;
+let computerScore = 0;
+
 function getComputerChoice() {
-    let userChoice = Math.random();
+    let pcChoice = Math.random();
 
-    if (userChoice <= .33)
-        return "Rock";        
-    if (userChoice <= .66)
-        return "Paper";
-    return "Scissors";
+    if (pcChoice <= .33)
+        return "rock";        
+    if (pcChoice <= .66)
+        return "paper";
+    return "scissors";
 }
-console.log("******",getComputerChoice(),"******","\n---(is the PC's random choice)---");
+//console.log("******",getComputerChoice(),"******","\n---(is the PC's random choice)---");
 
-
-/*
 function getHumanChoice() {
-    let human = prompt("What is your choice")
-    return;
+    let entry = prompt("What is your choice");
+    let human = entry.toLocaleLowerCase();
+    
+    if (human === "rock" || human === "scissors" || human === "paper")
+    return human;
 }
+//console.log("\n******",getHumanChoice(),"******","\n  (is Your Choice)");
+
+
 function playRound(humanChoice, computerChoice) {
-  // your code here!
+    if (humanChoice === computerChoice) return "It is a Tie!";
+
+    if ((humanChoice === "rock" && computerChoice === "scissors") || 
+        (humanChoice === "paper" && computerChoice === "rock") || 
+        (humanChoice === "scissors" && computerChoice === "paper")) {
+            humanScore++;
+            return `Congrats! You win! because **${humanChoice}** beat ${computerChoice}`;
+        }
+        
+    if ((computerChoice === "rock" && humanChoice === "scissors") || 
+        (computerChoice === "paper" && humanChoice === "rock") || 
+        (computerChoice === "scissors" && humanChoice === "paper")) {
+            computerScore++;
+            return `Sorry, you lose because **${computerChoice}** beat your ${humanChoice}`;
+        }
+        
 }
 
 const humanSelection = getHumanChoice();
 const computerSelection = getComputerChoice();
 
-playRound(humanSelection, computerSelection);
+
