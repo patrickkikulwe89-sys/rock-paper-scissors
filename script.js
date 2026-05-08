@@ -15,7 +15,6 @@ function getComputerChoice() {
         return "paper";
     return "scissors";
 }
-//console.log("******",getComputerChoice(),"******","\n---(is the PC's random choice)---");
 
 function getHumanChoice() {
     let entry = prompt("What is your choice");
