@@ -22,7 +22,7 @@ function getHumanChoice() {
     
     if (human === "rock" || human === "scissors" || human === "paper") {
         return human;
-    } else (!entry) 
+    } else //removed syntax for correcting invalid entries and just return a message that the round is skipped
     return "Invalid entry! Round skipped.";
     
 }
@@ -47,16 +47,43 @@ function playRound(humanChoice, computerChoice) {
 }
 
 function playGame() {
-    for (let i = 0; i < 5; i++) {
+    //Removing this logic to work on DOM manipulation and event listeners for buttons
+    
+    const buttons = document.querySelectorAll("button");
 
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-
-        console.log(`--- Round #${i + 1} ---`);
-        console.log(playRound(humanSelection, computerSelection));
-        console.log("Your Choice:", humanSelection, "\nPC Choice:", computerSelection);
-        console.log("Current Score:-\n You:", humanScore, "\n PC:", computerScore);
-    }
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            const humanSelection = button.id;
+            const computerSelection = getComputerChoice();
+            const result = playRound(humanSelection, computerSelection);
+            document.getElementById("results").innerHTML = result;
+            document.getElementById("score").innerHTML = `Score: Human ${humanScore} - Computer ${computerScore}`;
+        
+            if (humanScore === 5) {
+                document.getElementById("final-result").innerHTML = "Congratulations! You won the game!";
+                document.getElementById("final-result").style.cssText = "color: green; font-weight: bold; font-size: 20px"; //Indicates win with green font color
+            } else if (computerScore === 5) {
+                document.getElementById("final-result").innerHTML = "Sorry, you lost the game!";
+                document.getElementById("final-result").style.cssText = "color: red; font-weight: bold; font-size: 20px"; //Indicates loss with red font color
+            }
+            //When either player reaches 5 points, reset the scores to 0 to allow for a new game without refreshing the page
+            if (humanScore === 5 || computerScore === 5) {
+                humanScore = 0;
+                computerScore = 0;
+            }
+            
+        });
+    });
 }
 
 playGame();
+
+
+
+/////////////////////////////////
+//For now, remove the logic that plays exactly five rounds.
+//Create three buttons, one for each selection. Add an event listener to the buttons that call your playRound function with the correct playerSelection every time a button is clicked. (you can keep the console.logs for this step)
+//Add a div for displaying results and change all of your console.logs into DOM methods.
+//Display the running score, and announce a winner of the game once one player reaches 5 points.
+//You will likely have to refactor (rework/rewrite) your original code to make it work for this. That’s OK! Reworking old code is an important part of a programmer’s life.
+
